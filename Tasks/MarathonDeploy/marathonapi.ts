@@ -45,19 +45,18 @@ export class MarathonApi {
             case 200:
                 let nbInstances = jsonResponse.app.instances;
                 if (nbInstances > 0) {
-                    tl.debug("App ".concat(this.config.identifier, " already exists in Marathon, overriding its config and restarting it to force an image pull"))
-                    this.createOrUpdateApp(this.config.marathonFilePath);
-
+                    tl.debug("App ".concat(this.config.identifier, " already exists in Marathon. Overriding its config and restarting it to force an image pull"))
+                    this.createOrUpdateApp(this.config.marathonFilePath);                   
                 } else {
-                    var messageScaled =  "Application was previously scaled to 0. We won't override its config and won't restart it";
-                    if(this.config.failOnScaledTo0){
-                        throw new Error(messageScaled);
-                    }
-                    else{
-                        tl.warning(messageScaled);
+                   if(this.config.failOnScaledTo0){
+                        throw new Error("Application was previously scaled to 0. We won't override its config and won't restart it");
+                   }
+                   else{
+                        tl.warning("App ".concat(this.config.identifier, " was previously scaled to 0. Overriding its config and restarting it to force an image pull"))
+                        this.createOrUpdateApp(this.config.marathonFilePath);                   
                     }
                 }
-        }
+            }
     }
 
     createOrUpdateApp(marathonFilePath: string) {

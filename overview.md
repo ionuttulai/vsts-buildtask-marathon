@@ -29,4 +29,4 @@ ___
 ## Enjoy!
 
 
-Credits : Alban Kimor, Alm Team, Cdiscount France.
+Credits : Alban Kimor, Folly ADJANOH, Alm Team, Cdiscount France.
