@@ -16,7 +16,8 @@ export class MarathonApi {
         marathonFullAppPath = marathonFullAppPath.replace(/([^:]\/)\/+/g, "$1");
         tl.debug("marathonFullAppPath : " + marathonFullAppPath);
         let options: (request.UriOptions & request.CoreOptions) = {
-            uri: marathonFullAppPath
+            uri: marathonFullAppPath,
+            strictSSL: !this.config.allowInvalidSSLCertificate
         };
         if (this.config.useBasicAuthentication) {
             options.auth = {
@@ -68,7 +69,8 @@ export class MarathonApi {
             uri: marathonFullAppPath,
             qs: { force: true }, //Query string data
             method: 'PUT',
-            body: fs.createReadStream(marathonFilePath)
+            body: fs.createReadStream(marathonFilePath),
+            strictSSL: !this.config.allowInvalidSSLCertificate
         };
         if (this.config.useBasicAuthentication) {
             options.auth = {
@@ -100,7 +102,9 @@ export class MarathonApi {
         tl._writeLine("Check if deployment launched for specific application");
         let deploymentUrl = this.config.baseUrl.concat("/v2/deployments");
         deploymentUrl = deploymentUrl.replace(/([^:]\/)\/+/g, "$1");
-        let options: request.CoreOptions = {};
+        let options: request.CoreOptions = {
+            strictSSL: !this.config.allowInvalidSSLCertificate
+        };
         if (this.config.useBasicAuthentication) {
             options.auth = {
                 user: this.config.marathonUser,
@@ -134,7 +138,8 @@ export class MarathonApi {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
-            }
+            },
+            strictSSL: !this.config.allowInvalidSSLCertificate
         };
         if (this.config.useBasicAuthentication) {
             options.auth = {

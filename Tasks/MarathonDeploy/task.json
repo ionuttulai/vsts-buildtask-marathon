@@ -13,11 +13,18 @@
   "demands": [],
   "version": {
     "Major": "0",
-    "Minor": "3",
-    "Patch": "3"
+    "Minor": "4",
+    "Patch": "0"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "MarathonDeploy  $(identifier)",
+  "groups": [
+    {
+      "name": "advanced",
+      "displayName": "Advanced",
+      "isExpanded": false
+    }
+  ],
   "inputs": [
     {
       "name": "marathonEndpoint",
@@ -50,7 +57,16 @@
       "defaultValue": "false",
       "required": false,
       "helpMarkDown": "Fail the task when the application was previously scaled to 0."
-    }
+    },
+    {
+      "name": "allowInvalidSSLCertificate",
+      "type": "boolean",
+      "label": "Allow invalid SSL Certificate?",
+      "defaultValue": false,
+      "required": true,
+      "groupName": "advanced",
+      "helpMarkDown": "Do you want to call a URL that has an invalid SSL certificate?"
+    }    
   ],
   "execution": {
     "Node": {

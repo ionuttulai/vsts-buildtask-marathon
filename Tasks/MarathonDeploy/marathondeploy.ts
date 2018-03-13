@@ -57,6 +57,7 @@ class Main {
             config.identifier = tl.getInput('identifier', false);
             config.marathonFilePath = tl.getPathInput('jsonFilePath', false);
             config.failOnScaledTo0 = tl.getBoolInput('failOnScaledTo0', false);
+            config.allowInvalidSSLCertificate = tl.getBoolInput('allowInvalidSSLCertificate', false);
             return config;
         }
     }
