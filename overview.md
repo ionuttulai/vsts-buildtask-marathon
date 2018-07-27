@@ -10,7 +10,7 @@ ___
 
 1. Open the Services page in your Visual Studio Team Services Control Panel
 1. In the New Service Endpoint list, choose "Generic"
-1. Specify your Marathon URL, and optionnaly username and password (if you want to use a PAT instead of username/password, set the PAT as password).
+1. Specify your Marathon URL, and optionnaly username and password (if username is NULL and password is set the extension will use the password as access token: 'Authorization':'token=[passwod]')
 
 ___
 

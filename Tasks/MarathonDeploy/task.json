@@ -1,9 +1,9 @@
 {
-  "id": "38D9696D-62B8-4035-879D-964E88D87EB4",
+  "id": "8A96934E-8ED0-44B4-8CFB-EAC5433934AC",
   "name": "MarathonDeploy",
   "friendlyName": "Marathon Deploy",
   "description": "Deploy docker application on Marathon.",
-  "author": "Cdiscount Alm / Alban Kimor",
+  "author": "Cdiscount Alm / Alban Kimor (modified by Ionut Tulai)",
   "helpMarkDown": "",
   "category": "Deploy",
   "visibility": [
@@ -12,8 +12,8 @@
   ],
   "demands": [],
   "version": {
-    "Major": "0",
-    "Minor": "4",
+    "Major": "1",
+    "Minor": "0",
     "Patch": "0"
   },
   "minimumAgentVersion": "1.95.0",

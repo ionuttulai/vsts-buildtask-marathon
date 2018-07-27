@@ -1,10 +1,10 @@
 {
   "manifestVersion": 1,
-  "id": "vsts-marathonapi-build-tasks",
-  "version": "0.4.0",
-  "name": "Marathon API tasks",
+  "id": "vsts-marathonapi-build-tasks-new",
+  "version": "1.0.0",
+  "name": "Marathon API tasks - updated",
   "description": "VSTS Build tasks which allow interactions with Mesos Marathon API.",
-  "publisher": "CdiscountAlm",
+  "publisher": "IonutTulai",
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
@@ -26,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "uri": "https://github.com/Cdiscount/vsts-buildtask-marathon"
+    "uri": "https://github.com/ionuttulai/vsts-buildtask-marathon"
   },
   "galleryFlags": [
     "Public"
@@ -44,7 +44,7 @@
   ],
   "contributions": [
     {
-      "id": "vsts-marathonapi-build-marathondeploy",
+      "id": "vsts-marathonapi-build-marathondeploy-new",
       "type": "ms.vss-distributed-task.task",
       "targets": [
         "ms.vss-distributed-task.tasks"

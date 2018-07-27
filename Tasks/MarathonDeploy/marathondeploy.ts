@@ -13,7 +13,7 @@ class Main {
             // will error and fail task if it doesn't exist
             tl.checkPath(config.marathonFilePath, 'jsonFilePath');
 
-            tl._writeLine("marathon.json file path: ".concat(config.marathonFilePath));
+            tl.debug("marathon.json file path: ".concat(config.marathonFilePath));
 
             // if identifier not passed in parameter, read it from marathon.json
             if (!config.identifier) {
@@ -47,19 +47,25 @@ class Main {
         config.marathonUser = tl.getEndpointAuthorizationParameter(marathonEndpoint, "username", true);
         config.marathonPassword = tl.getEndpointAuthorizationParameter(marathonEndpoint, "password", true);
         config.useBasicAuthentication = false;
-        if (config.marathonUser != null || config.marathonPassword != null) {
+        config.useTokenAuthentication = false;
+        
+        //use token authentication and read token from password field
+        if (config.marathonPassword != null && config.marathonUser == null) {
+            config.useTokenAuthentication = true;
+        }
+        else if (config.marathonUser != null || config.marathonPassword != null) {
             config.useBasicAuthentication = true;
             if (config.marathonUser == null) {
                 // PAT is set into password var
                 config.marathonUser = "";
             }
-
+        }
             config.identifier = tl.getInput('identifier', false);
             config.marathonFilePath = tl.getPathInput('jsonFilePath', false);
             config.failOnScaledTo0 = tl.getBoolInput('failOnScaledTo0', false);
             config.allowInvalidSSLCertificate = tl.getBoolInput('allowInvalidSSLCertificate', false);
             return config;
-        }
+        
     }
 }   
 

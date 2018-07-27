@@ -4,5 +4,13 @@
     "build": "tsc -p .",
     "postbuild": "npm run package",
     "package": "tfx extension create"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "request": "^2.87.0",
+    "vsts-task-lib": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.3"
   }
 }

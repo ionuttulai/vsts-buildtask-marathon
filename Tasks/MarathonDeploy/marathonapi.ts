@@ -14,17 +14,24 @@ export class MarathonApi {
     sendToMarathon() {
         let marathonFullAppPath = this.config.baseUrl.concat("/v2/apps/", this.config.identifier)
         marathonFullAppPath = marathonFullAppPath.replace(/([^:]\/)\/+/g, "$1");
-        tl.debug("marathonFullAppPath : " + marathonFullAppPath);
+        tl._writeLine("marathonFullAppPath : " + marathonFullAppPath);
         let options: (request.UriOptions & request.CoreOptions) = {
             uri: marathonFullAppPath,
             strictSSL: !this.config.allowInvalidSSLCertificate
         };
-        if (this.config.useBasicAuthentication) {
+        if (this.config.useTokenAuthentication) {
+            let tokenStr = "token="+this.config.marathonPassword;
+            tl._writeLine("using token authentication!");
+            options.headers =  { "Authorization" : tokenStr};
+        }
+        else if (this.config.useBasicAuthentication) {
+            tl._writeLine("using basic authentication for user: "+this.config.marathonUser);
             options.auth = {
                 user: this.config.marathonUser,
                 pass: this.config.marathonPassword
             };
         }
+
         request(options, this.sendToMarathonCallBack.bind(this))
     }
 
@@ -61,8 +68,8 @@ export class MarathonApi {
     }
 
     createOrUpdateApp(marathonFilePath: string) {
-        tl._writeLine("createOrUpdateApp method. Put request with marathon json file.");
-        tl._writeLine(fs.readFileSync(marathonFilePath).toString());
+        tl.debug("createOrUpdateApp method. Put request with marathon json file.");
+        tl.debug(fs.readFileSync(marathonFilePath).toString());
         let marathonFullAppPath = this.config.baseUrl.concat("/v2/apps/", this.config.identifier);
         marathonFullAppPath = marathonFullAppPath.replace(/([^:]\/)\/+/g, "$1");
         let options: (request.UriOptions & request.CoreOptions) = {
@@ -72,7 +79,14 @@ export class MarathonApi {
             body: fs.createReadStream(marathonFilePath),
             strictSSL: !this.config.allowInvalidSSLCertificate
         };
-        if (this.config.useBasicAuthentication) {
+        if (this.config.useTokenAuthentication) {
+            let tokenStr = "token="+this.config.marathonPassword;
+            options.headers =  { 
+                'content-type' : 'application/json',
+                'Authorization' : tokenStr
+            };
+        }
+        else if (this.config.useBasicAuthentication) {
             options.auth = {
                 user: this.config.marathonUser,
                 pass: this.config.marathonPassword
@@ -99,13 +113,20 @@ export class MarathonApi {
 
     isDeploymentLaunched() {
         this.deploymentLaunched = false;
-        tl._writeLine("Check if deployment launched for specific application");
+        tl.debug("Check if deployment launched for specific application");
         let deploymentUrl = this.config.baseUrl.concat("/v2/deployments");
         deploymentUrl = deploymentUrl.replace(/([^:]\/)\/+/g, "$1");
         let options: request.CoreOptions = {
             strictSSL: !this.config.allowInvalidSSLCertificate
         };
-        if (this.config.useBasicAuthentication) {
+        if (this.config.useTokenAuthentication) {
+            let tokenStr = "token="+this.config.marathonPassword;
+            options.headers =  { 
+                'content-type' : 'application/json',
+                'Authorization' : tokenStr
+            };
+        }
+        else if (this.config.useBasicAuthentication) {
             options.auth = {
                 user: this.config.marathonUser,
                 pass: this.config.marathonPassword
@@ -129,7 +150,7 @@ export class MarathonApi {
         }
 
     restartApp() {
-        tl._writeLine("Restart Application");
+        tl.debug("Restart Application");
         let restartUrl = this.config.baseUrl.concat("/v2/apps/", this.config.identifier , "/restart");
         restartUrl = restartUrl.replace(/([^:]\/)\/+/g, "$1");
         let options: (request.UriOptions & request.CoreOptions) = {
@@ -141,7 +162,14 @@ export class MarathonApi {
             },
             strictSSL: !this.config.allowInvalidSSLCertificate
         };
-        if (this.config.useBasicAuthentication) {
+        if (this.config.useTokenAuthentication) {
+            let tokenStr = "token="+this.config.marathonPassword;
+            options.headers =  { 
+                'content-type' : 'application/json',
+                'Authorization' : tokenStr
+            };
+        }
+        else if (this.config.useBasicAuthentication) {
             options.auth = {
                 user: this.config.marathonUser,
                 pass: this.config.marathonPassword
